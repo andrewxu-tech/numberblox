@@ -1,25 +1,47 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Alert } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert, TouchableOpacity } from 'react-native';
 
 export default class App extends React.Component {
   render() {
     return (
       <View>
         <View style={styles.container}>
-          <View
-            style={styles.box}
-            onPress={() => {
-              Alert.alert('You tapped the button!');
-            }}
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
           />
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
-          <View style={styles.box}/>
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
+          <TouchableOpacity
+            style={StyleSheet.flatten([styles.box, { backgroundColor: 'green' }])}
+            onPress={this.props.handlePress}
+          />
         </View>
       </View>
     );
