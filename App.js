@@ -27,6 +27,7 @@ export default class App extends React.Component {
         <Text>Seconds Passed: {this.state.secondsPassed}</Text>
         <GameContainer
           handlePress={this.handlePress}
+          handleTimerTick={this.handleTimerTick}
         />
       </View>
     );
