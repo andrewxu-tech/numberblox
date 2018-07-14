@@ -5,11 +5,12 @@ import { Font } from 'expo';
 export default class App extends React.Component {
 
   state = {
-    numberOfSquares: 3,
+    numberOfSquares: 4,
     currentSquares: [],
     gameOver: false,
     loaded: false,
-    currentSquaresPressed: []
+    currentSquaresPressed: [],
+    timerOn: true
   }
 
   generateRandomSquares = (numberOfSquares) => {
@@ -26,9 +27,13 @@ export default class App extends React.Component {
 
   timer = () => {
     setInterval(() => {
-      if (this.state.currentSquaresPressed.length < this.state.numberOfSquares) {
+      const newCurrentSquaresPressed = this.state.currentSquaresPressed;
+      if (this.state.currentSquaresPressed.length < this.state.numberOfSquares
+        || newCurrentSquaresPressed[newCurrentSquaresPressed.length-2] !== newCurrentSquaresPressed[newCurrentSquaresPressed.length-1] - 1
+      ) {
+        this.setState({ ...this.state, timerOn: false });
         return this.gameOver();
-      } else {
+      } else if (this.state.timerOn) {
         this.generateRandomSquares(this.state.numberOfSquares);
         return this.setState({ ...this.state, currentSquaresPressed: [] });
       }
@@ -43,6 +48,7 @@ export default class App extends React.Component {
     const newCurrentSquaresPressed = this.state.currentSquaresPressed;
     newCurrentSquaresPressed.push(pressedSquare);
     if (newCurrentSquaresPressed.length === 1 && pressedSquare !== 0) {
+      this.setState({ ...this.state, timerOn: false });
       return this.gameOver();
     }
     if (pressedSquare !== 0 && newCurrentSquaresPressed[newCurrentSquaresPressed.length-2] !== newCurrentSquaresPressed[newCurrentSquaresPressed.length-1] - 1) {
@@ -59,7 +65,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.generateRandomSquares(3);
+    this.generateRandomSquares(this.state.numberOfSquares);
     this.timer();
   }
 
@@ -104,8 +110,9 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 500,
+    height: Dimensions.get('window').width,
     width: Dimensions.get('window').width,
+    backgroundColor: 'yellow',
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
@@ -124,10 +131,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     marginBottom: 10,
     borderRadius: 15,
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    justifyContent: 'center'
   },
   specialBoxText: {
     fontSize: 72,
