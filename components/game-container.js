@@ -9,12 +9,16 @@ export default class App extends React.Component {
     gameOver: false
   }
 
-  generateRandomSquares = () => {
-    this.setState({...this.state, currentSquares: [ Math.floor(Math.random() * 10) ]});
+  generateRandomSquares = (numberOfSquares) => {
+    const newCurrentSquares = [];
+    [...Array(numberOfSquares)].forEach(() => {
+      newCurrentSquares.push(Math.floor(Math.random() * 10));
+    });
+    this.setState({...this.state, currentSquares: newCurrentSquares });
   }
 
   componentDidMount = () => {
-    this.generateRandomSquares();
+    this.generateRandomSquares(3);
   }
 
   render() {
@@ -24,134 +28,23 @@ export default class App extends React.Component {
         <Text>{this.state.currentSquares}</Text>
         <View style={styles.container}>
           {[...Array(9)].map((e, i) => {
-            return <Text className="busterCards" key={i}>j</Text>;
+            return <View key={i}>
+              {this.state.currentSquares.includes(i) &&
+                <TouchableOpacity
+                  style={styles.specialBox}
+                  onPress={() => {
+                    this.props.handlePress();
+                    this.setState({ ...this.state, pressed: true });
+                  }}
+                />
+              }
+              {!this.state.currentSquares.includes(i) &&
+                <View
+                  style={styles.box}
+                />
+              }
+            </View>;
           })}
-          {this.state.currentSquare === 0 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 0 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 1 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 1 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 2 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 2 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 3 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 3 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 4 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 4 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 5 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 5 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 6 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 6 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 7 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 7 &&
-            <View
-              style={styles.box}
-            />
-          }
-          {this.state.currentSquare === 8 &&
-            <TouchableOpacity
-              style={styles.specialBox}
-              onPress={() => {
-                this.props.handlePress();
-                this.setState({ ...this.state, pressed: true });
-              }}
-            />
-          }
-          {this.state.currentSquare !== 8 &&
-            <View
-              style={styles.box}
-            />
-          }
         </View>
       </View>
     );
