@@ -12,13 +12,24 @@ export default class App extends React.Component {
   generateRandomSquares = (numberOfSquares) => {
     const newCurrentSquares = [];
     [...Array(numberOfSquares)].forEach(() => {
-      newCurrentSquares.push(Math.floor(Math.random() * 10));
+      let newNumber = Math.floor(Math.random() * 9);
+      while (newCurrentSquares.includes(newNumber)) {
+        newNumber = Math.floor(Math.random() * 9);
+      }
+      newCurrentSquares.push(newNumber);
     });
     this.setState({...this.state, currentSquares: newCurrentSquares });
   }
 
+  timer = () => {
+    setInterval(() => {
+      this.generateRandomSquares(3);
+    }, 1500);
+  }
+
   componentDidMount = () => {
     this.generateRandomSquares(3);
+    this.timer();
   }
 
   render() {
