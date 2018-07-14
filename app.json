@@ -1,4 +1,6 @@
 {
+  "name": "react-native-game",
+  "displayName": "react-native-game",
   "expo": {
     "sdkVersion": "27.0.0"
   }
