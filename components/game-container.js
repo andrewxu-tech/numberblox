@@ -10,7 +10,8 @@ export default class App extends React.Component {
     currentSquares: [],
     gameOver: false,
     currentSquaresPressed: [],
-    timerOn: true
+    timerOn: true,
+    ticker: 1
   }
 
   generateRandomSquares = (numberOfSquares) => {
@@ -25,8 +26,15 @@ export default class App extends React.Component {
     this.setState({ ...this.state, currentSquares: newCurrentSquares });
   }
 
-  timer = () => {
+  ticker = () => {
     setInterval(() => {
+      this.timer();
+      this.setState({ ...this.state, ticker: this.state.ticker + 1 });
+    }, 1000/60);
+  }
+
+  timer = () => {
+    if (!(this.state.ticker % 90)) {
       const newCurrentSquaresPressed = this.state.currentSquaresPressed;
       if (this.state.currentSquaresPressed.length < this.state.numberOfSquares
         || newCurrentSquaresPressed[newCurrentSquaresPressed.length-2] !== newCurrentSquaresPressed[newCurrentSquaresPressed.length-1] - 1
@@ -37,7 +45,7 @@ export default class App extends React.Component {
         this.generateRandomSquares(this.state.numberOfSquares);
         return this.setState({ ...this.state, currentSquaresPressed: [] });
       }
-    }, 1500);
+    }
   }
 
   gameOver = () => {
@@ -59,15 +67,13 @@ export default class App extends React.Component {
 
   componentDidMount = () => {
     this.generateRandomSquares(this.state.numberOfSquares);
-    this.timer();
+    this.ticker();
   }
 
   render() {
     return (
       <View>
         {this.state.gameOver && <Text>Game Over!</Text>}
-        <Text>{this.state.currentSquares}</Text>
-        <Text>{this.state.currentSquarePressed}</Text>
         <View style={styles.container}>
           {[...Array(9)].map((e, i) => {
             return <View key={i}>
@@ -75,7 +81,9 @@ export default class App extends React.Component {
                 <TouchableOpacity
                   style={styles.specialBox}
                   onPress={() => {
-                    this.props.handlePress();
+                    if (!this.state.gameOver) {
+                      this.props.handlePress();
+                    }
                     this.handlePress(this.state.currentSquares.indexOf(i));
                   }}
                 >
@@ -105,33 +113,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexWrap: 'wrap',
     paddingTop: 20,
-    backgroundColor: '#ffd08c',
+    backgroundColor: '#c7ff75',
     borderTopWidth: 10,
     borderBottomWidth: 10,
-    borderColor: '#ffd08c'
+    borderColor: '#7ACC00'
   },
   box: {
-    height: (Dimensions.get('window').width / 3) - 10,
-    width: (Dimensions.get('window').width / 3) - 10,
-    backgroundColor: '#c7ff75',
-    marginBottom: 10,
-    borderRadius: 30,
-    borderWidth: 10,
-    borderColor: '#c7ff75'
-  },
-  specialBox: {
     height: (Dimensions.get('window').width / 3) - 10,
     width: (Dimensions.get('window').width / 3) - 10,
     backgroundColor: '#7ACC00',
     marginBottom: 10,
     borderRadius: 30,
+    borderWidth: 10,
+    borderColor: '#7ACC00'
+  },
+  specialBox: {
+    height: (Dimensions.get('window').width / 3) - 10,
+    width: (Dimensions.get('window').width / 3) - 10,
+    backgroundColor: '#e5ffc1',
+    marginBottom: 10,
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 10,
-    borderColor: '#c7ff75'
+    borderColor: '#7ACC00'
   },
   specialBoxText: {
     fontSize: 72,
-    color: 'white'
+    color: '#7ACC00'
   }
 });

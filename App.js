@@ -34,8 +34,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Times Pressed: {this.state.timesPressed}</Text>
-        <Text>Seconds Passed: {this.state.secondsPassed}</Text>
+        <Text style={styles.scoreText}>
+          {this.state.timesPressed}
+        </Text>
         <GameContainer
           handlePress={this.handlePress}
           handleTimerTick={this.handleTimerTick}
@@ -51,5 +52,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF9800',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  scoreText: {
+    fontSize: 72,
+    color: 'white'
   }
 });
