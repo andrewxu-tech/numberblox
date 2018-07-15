@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, TouchableOpacity, Text } from 'react-native';
-import { Font } from 'expo';
+import { StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
+
+import Text from './base/my-app-text';
 
 export default class App extends React.Component {
 
   state = {
-    numberOfSquares: 4,
+    numberOfSquares: 3,
     currentSquares: [],
     gameOver: false,
-    loaded: false,
     currentSquaresPressed: [],
     timerOn: true
   }
@@ -57,13 +57,6 @@ export default class App extends React.Component {
     return this.setState({ ...this.state, currentSquaresPressed: newCurrentSquaresPressed });
   }
 
-  async componentWillMount() {
-    await Font.loadAsync({
-      DosisExtraBold: require('../assets/fonts/Dosis-ExtraBold.ttf')
-    });
-    this.setState({ ...this.state, loaded: true });
-  }
-
   componentDidMount = () => {
     this.generateRandomSquares(this.state.numberOfSquares);
     this.timer();
@@ -72,37 +65,33 @@ export default class App extends React.Component {
   render() {
     return (
       <View>
-        {this.state.loaded &&
-          <View>
-            {this.state.gameOver && <Text>Game Over!</Text>}
-            <Text>{this.state.currentSquares}</Text>
-            <Text>{this.state.currentSquarePressed}</Text>
-            <View style={styles.container}>
-              {[...Array(9)].map((e, i) => {
-                return <View key={i}>
-                  {this.state.currentSquares.includes(i) &&
-                    <TouchableOpacity
-                      style={styles.specialBox}
-                      onPress={() => {
-                        this.props.handlePress();
-                        this.handlePress(this.state.currentSquares.indexOf(i));
-                      }}
-                    >
-                      <Text style={styles.specialBoxText}>
-                        {this.state.currentSquares.indexOf(i) + 1}
-                      </Text>
-                    </TouchableOpacity>
-                  }
-                  {!this.state.currentSquares.includes(i) &&
-                    <View
-                      style={styles.box}
-                    />
-                  }
-                </View>;
-              })}
-            </View>
-          </View>
-        }
+        {this.state.gameOver && <Text>Game Over!</Text>}
+        <Text>{this.state.currentSquares}</Text>
+        <Text>{this.state.currentSquarePressed}</Text>
+        <View style={styles.container}>
+          {[...Array(9)].map((e, i) => {
+            return <View key={i}>
+              {this.state.currentSquares.includes(i) &&
+                <TouchableOpacity
+                  style={styles.specialBox}
+                  onPress={() => {
+                    this.props.handlePress();
+                    this.handlePress(this.state.currentSquares.indexOf(i));
+                  }}
+                >
+                  <Text style={styles.specialBoxText}>
+                    {this.state.currentSquares.indexOf(i) + 1}
+                  </Text>
+                </TouchableOpacity>
+              }
+              {!this.state.currentSquares.includes(i) &&
+                <View
+                  style={styles.box}
+                />
+              }
+            </View>;
+          })}
+        </View>
       </View>
     );
   }
@@ -136,7 +125,6 @@ const styles = StyleSheet.create({
   },
   specialBoxText: {
     fontSize: 72,
-    fontFamily: 'DosisExtraBold',
     color: 'white'
   }
 });

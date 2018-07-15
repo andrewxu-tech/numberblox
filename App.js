@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Font } from 'expo';
+
+import Text from './components/base/my-app-text';
 
 import GameContainer from './components/game-container';
 
@@ -7,7 +10,8 @@ export default class App extends React.Component {
 
   state = {
     timesPressed: 0,
-    secondsPassed: 0
+    secondsPassed: 0,
+    loaded: false
   }
 
   handlePress = () => {
@@ -18,6 +22,13 @@ export default class App extends React.Component {
   handleTimerTick = () => {
     const currentSecondsPassed = this.state.secondsPassed + 1;
     this.setState({ secondsPassed: currentSecondsPassed });
+  }
+
+  async componentWillMount() {
+    await Font.loadAsync({
+      DosisExtraBold: require('./assets/fonts/Dosis-ExtraBold.ttf')
+    });
+    this.setState({ ...this.state, loaded: true });
   }
 
   render() {
