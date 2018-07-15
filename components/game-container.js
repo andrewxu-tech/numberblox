@@ -11,7 +11,8 @@ export default class App extends React.Component {
     gameOver: false,
     currentSquaresPressed: [],
     timerOn: true,
-    ticker: 1
+    ticker: 1,
+    timerBarWidth: 0
   }
 
   generateRandomSquares = (numberOfSquares) => {
@@ -29,6 +30,7 @@ export default class App extends React.Component {
   ticker = () => {
     setInterval(() => {
       this.timer();
+      this.calculateTimerBarWidth();
       this.setState({ ...this.state, ticker: this.state.ticker + 1 });
     }, 1000/60);
   }
@@ -45,6 +47,15 @@ export default class App extends React.Component {
         this.generateRandomSquares(this.state.numberOfSquares);
         return this.setState({ ...this.state, currentSquaresPressed: [] });
       }
+    }
+  }
+
+  calculateTimerBarWidth = () => {
+    if (!this.state.gameOver) {
+      const currentTimerBarWidth = ((this.state.ticker % 90) / 90) * Dimensions.get('window').width;
+      this.setState({ ...this.state, timerBarWidth: currentTimerBarWidth});
+    } else {
+      this.setState({ ...this.state, timerBarWidth: 0});
     }
   }
 
@@ -74,6 +85,15 @@ export default class App extends React.Component {
     return (
       <View>
         {this.state.gameOver && <Text>Game Over!</Text>}
+        <View style={styles.timerBarContainer}>
+          {this.state.timerBarWidth &&
+            <View style={{
+              width: this.state.timerBarWidth,
+              height: 50,
+              backgroundColor: '#6244BB'
+            }} />
+          }
+        </View>
         <View style={styles.container}>
           {[...Array(9)].map((e, i) => {
             return <View key={i}>
@@ -141,5 +161,10 @@ const styles = StyleSheet.create({
   specialBoxText: {
     fontSize: 72,
     color: '#7ACC00'
+  },
+  timerBarContainer: {
+    width: (Dimensions.get('window').width),
+    height: 20,
+    backgroundColor: '#b8abe0'
   }
 });
