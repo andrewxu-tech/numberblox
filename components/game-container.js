@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
 
+import GameOver from './messages/game-over';
+
 import Text from './base/my-app-text';
 
-export default class App extends React.Component {
+export default class GameContainer extends React.Component {
 
   state = {
     numberOfSquares: 3,
@@ -84,7 +86,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View>
-        {this.state.gameOver && <Text>Game Over!</Text>}
+        {this.state.gameOver &&
+          <GameOver />
+        }
         <View style={styles.timerBarContainer}>
           {this.state.timerBarWidth &&
             <View style={{
