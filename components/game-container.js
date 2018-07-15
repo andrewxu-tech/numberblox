@@ -99,29 +99,36 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').width,
+    height: Dimensions.get('window').width + 50,
     width: Dimensions.get('window').width,
-    backgroundColor: 'yellow',
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
-    paddingTop: 10
+    paddingTop: 20,
+    backgroundColor: '#ffd08c',
+    borderTopWidth: 10,
+    borderBottomWidth: 10,
+    borderColor: '#ffd08c'
   },
   box: {
     height: (Dimensions.get('window').width / 3) - 10,
     width: (Dimensions.get('window').width / 3) - 10,
-    backgroundColor: 'red',
+    backgroundColor: '#c7ff75',
     marginBottom: 10,
-    borderRadius: 15
+    borderRadius: 30,
+    borderWidth: 10,
+    borderColor: '#c7ff75'
   },
   specialBox: {
     height: (Dimensions.get('window').width / 3) - 10,
     width: (Dimensions.get('window').width / 3) - 10,
-    backgroundColor: 'green',
+    backgroundColor: '#7ACC00',
     marginBottom: 10,
-    borderRadius: 15,
+    borderRadius: 30,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 10,
+    borderColor: '#c7ff75'
   },
   specialBoxText: {
     fontSize: 72,
