@@ -5,7 +5,7 @@ import GameOver from './messages/game-over';
 
 import Text from './base/my-app-text';
 
-export default class GameContainer extends React.Component {
+export default class App extends React.Component {
 
   state = {
     numberOfSquares: 3,
@@ -14,7 +14,7 @@ export default class GameContainer extends React.Component {
     currentSquaresPressed: [],
     timerOn: true,
     ticker: 1,
-    timerBarWidth: 0
+    timerBarProgress: 1
   }
 
   generateRandomSquares = (numberOfSquares) => {
@@ -31,8 +31,8 @@ export default class GameContainer extends React.Component {
 
   ticker = () => {
     setInterval(() => {
+      this.calculateProgressBar();
       this.timer();
-      this.calculateTimerBarWidth();
       this.setState({ ...this.state, ticker: this.state.ticker + 1 });
     }, 1000/60);
   }
@@ -52,12 +52,12 @@ export default class GameContainer extends React.Component {
     }
   }
 
-  calculateTimerBarWidth = () => {
+  calculateProgressBar = () => {
     if (!this.state.gameOver) {
-      const currentTimerBarWidth = ((this.state.ticker % 90) / 90) * Dimensions.get('window').width;
-      this.setState({ ...this.state, timerBarWidth: currentTimerBarWidth});
+      const newTimerBarProgress = this.state.timerBarProgress + (Dimensions.get('window').width / 90);
+      this.setState({ ...this.state, timerBarProgress: newTimerBarProgress});
     } else {
-      this.setState({ ...this.state, timerBarWidth: 0});
+      this.setState({ ...this.state, timerBarProgress: 0});
     }
   }
 
@@ -90,9 +90,10 @@ export default class GameContainer extends React.Component {
           <GameOver />
         }
         <View style={styles.timerBarContainer}>
-          {this.state.timerBarWidth &&
+          {this.state.timerBarProgress &&
             <View style={{
-              width: this.state.timerBarWidth,
+              transform: [{ translateX: - this.state.timerBarProgress }],
+              width: Dimensions.get('window').width,
               height: 50,
               backgroundColor: '#6244BB'
             }} />
