@@ -47,7 +47,7 @@ export default class App extends React.Component {
         return this.gameOver();
       } else if (this.state.timerOn) {
         this.generateRandomSquares(this.state.numberOfSquares);
-        return this.setState({ ...this.state, currentSquaresPressed: [] });
+        return this.setState({ ...this.state, currentSquaresPressed: [], timerBarProgress: 1 });
       }
     }
   }
