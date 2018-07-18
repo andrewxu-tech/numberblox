@@ -15,7 +15,7 @@ export default class GameOver extends React.Component {
             title="Retry"
             onPress={() => {}}
           >
-            <Text>Retry</Text>
+            <Text style={styles.buttonText}>Retry</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,16 +37,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF9800',
     display: 'flex',
     alignItems: 'center',
-    borderRadius: 30
+    borderRadius: 30,
+    padding: 30
   },
   gameOverText: {
     fontSize: 48,
     color: 'white'
   },
   button: {
-    backgroundColor: '#FF9800',
+    backgroundColor: '#ffcb7f',
     borderRadius: 30,
-    borderWidth: 10,
-    borderColor: '#ffcb7f'
+    padding: 15,
+    marginTop: 30
+  },
+  buttonText: {
+    fontSize: 36
   }
 });
