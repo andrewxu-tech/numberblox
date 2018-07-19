@@ -83,11 +83,27 @@ export default class App extends React.Component {
     this.ticker();
   }
 
+  reset = () => {
+    this.setState({
+      numberOfSquares: 3,
+      currentSquares: [],
+      gameOver: false,
+      currentSquaresPressed: [],
+      timerOn: true,
+      ticker: 1,
+      timerBarProgress: 1
+    }, () => {
+      this.generateRandomSquares(this.state.numberOfSquares);
+    });
+  }
+
   render() {
     return (
       <View>
         {this.state.gameOver &&
-          <GameOver />
+          <GameOver
+            reset={this.reset}
+          />
         }
         <View style={styles.timerBarContainer}>
           {this.state.timerBarProgress &&
