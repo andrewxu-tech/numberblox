@@ -8,7 +8,7 @@ import Text from './base/my-app-text';
 export default class App extends React.Component {
 
   state = {
-    numberOfSquares: 3,
+    numberOfSquares: 4,
     currentSquares: [],
     gameOver: false,
     currentSquaresPressed: [],
@@ -85,7 +85,7 @@ export default class App extends React.Component {
 
   reset = () => {
     this.setState({
-      numberOfSquares: 3,
+      numberOfSquares: 4,
       currentSquares: [],
       gameOver: false,
       currentSquaresPressed: [],
@@ -108,10 +108,8 @@ export default class App extends React.Component {
         <View style={styles.timerBarContainer}>
           {this.state.timerBarProgress &&
             <View style={{
-              transform: [{ translateX: - this.state.timerBarProgress }],
-              width: Dimensions.get('window').width,
-              height: 50,
-              backgroundColor: '#6244BB'
+              ...styles.progressBar,
+              transform: [{ translateX: - this.state.timerBarProgress }]
             }} />
           }
         </View>
@@ -187,5 +185,9 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width),
     height: 20,
     backgroundColor: '#b8abe0'
+  }, progressBar: {
+    width: Dimensions.get('window').width,
+    height: 50,
+    backgroundColor: '#6244BB'
   }
 });
