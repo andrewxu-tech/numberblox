@@ -108,8 +108,10 @@ export default class App extends React.Component {
         <View style={styles.timerBarContainer}>
           {this.state.timerBarProgress &&
             <View style={{
-              ...styles.progressBar,
-              transform: [{ translateX: - this.state.timerBarProgress }]
+              width: Dimensions.get('window').width,
+              height: 50,
+              backgroundColor: '#6244BB',
+              transform: [{ translateX: -this.state.timerBarProgress }]
             }} />
           }
         </View>
@@ -185,9 +187,5 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width),
     height: 20,
     backgroundColor: '#b8abe0'
-  }, progressBar: {
-    width: Dimensions.get('window').width,
-    height: 50,
-    backgroundColor: '#6244BB'
   }
 });
