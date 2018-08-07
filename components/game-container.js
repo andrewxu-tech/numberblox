@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 
 import GameOver from './messages/game-over';
 
@@ -84,6 +84,7 @@ export default class App extends React.Component {
   }
 
   reset = () => {
+    this.props.clearScore();
     this.setState({
       numberOfSquares: 4,
       currentSquares: [],
@@ -119,8 +120,7 @@ export default class App extends React.Component {
           {[...Array(9)].map((e, i) => {
             return <View key={i}>
               {this.state.currentSquares.includes(i) &&
-                <TouchableOpacity
-                  style={styles.specialBox}
+                <TouchableWithoutFeedback
                   onPress={() => {
                     if (!this.state.gameOver) {
                       this.props.handlePress();
@@ -128,10 +128,24 @@ export default class App extends React.Component {
                     this.handlePress(this.state.currentSquares.indexOf(i));
                   }}
                 >
-                  <Text style={styles.specialBoxText}>
-                    {this.state.currentSquares.indexOf(i) + 1}
-                  </Text>
-                </TouchableOpacity>
+                  <View>
+                    {!this.state.currentSquaresPressed.includes(this.state.currentSquares.indexOf(i)) &&
+                      <View
+                        style={styles.specialBox}
+                      >
+                        <Text style={styles.specialBoxText}>
+                          {this.state.currentSquares.indexOf(i) + 1}
+                        </Text>
+                      </View>
+                    }
+                    {this.state.currentSquaresPressed.includes(this.state.currentSquares.indexOf(i)) &&
+                      <View
+                        style={styles.box}
+                      >
+                      </View>
+                    }
+                  </View>
+                </TouchableWithoutFeedback>
               }
               {!this.state.currentSquares.includes(i) &&
                 <View

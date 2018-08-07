@@ -24,6 +24,10 @@ export default class App extends React.Component {
     this.setState({ secondsPassed: currentSecondsPassed });
   }
 
+  clearScore = () => {
+    this.setState({ timesPressed: 0 });
+  }
+
   async componentWillMount() {
     await Font.loadAsync({
       DosisExtraBold: require('./assets/fonts/Dosis-ExtraBold.ttf')
@@ -40,6 +44,7 @@ export default class App extends React.Component {
         <GameContainer
           handlePress={this.handlePress}
           handleTimerTick={this.handleTimerTick}
+          clearScore={this.clearScore}
         />
       </View>
     );
